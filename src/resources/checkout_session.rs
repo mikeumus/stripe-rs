@@ -17,7 +17,7 @@ pub struct CheckoutSession {
     ///
     /// Used to pass to `redirectToCheckout` in Stripe.js.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: CheckoutSessionId,
+    pub id: Option<CheckoutSessionId>,
 
     /// The value (`auto` or `required`) for whether Checkout collected the
     /// customer's billing address.
@@ -119,7 +119,7 @@ pub struct CheckoutSession {
 impl Object for CheckoutSession {
     type Id = CheckoutSessionId;
     fn id(&self) -> Self::Id {
-        self.id.clone()
+        self.id.as_ref().unwrap().clone()
     }
     fn object(&self) -> &'static str {
         "checkout.session"
