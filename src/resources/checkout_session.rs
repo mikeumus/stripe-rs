@@ -16,6 +16,7 @@ pub struct CheckoutSession {
     /// Unique identifier for the object.
     ///
     /// Used to pass to `redirectToCheckout` in Stripe.js.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub id: CheckoutSessionId,
 
     /// The value (`auto` or `required`) for whether Checkout collected the
