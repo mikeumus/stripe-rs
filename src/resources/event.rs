@@ -260,6 +260,7 @@ impl Webhook {
         let sign = if event.livemode {
             signature.v1
         } else {
+            println!("  👿 else sig");
             signature.v0.ok_or(WebhookError::MissingTestmodeSignature)?
         };
         // Compute HMAC with the SHA256 hash function, using endpoing secret as key
@@ -271,7 +272,7 @@ impl Webhook {
         let hex = to_hex(mac_result.code().as_slice());
         // if hex != signature.v1 {
         if hex != sign {
-        // if !mac.result().is_equal(sign.as_bytes()) {
+            // if !mac.result().is_equal(sign.as_bytes()) {
             println!("  👿 hex != sign");
             return Err(WebhookError::BadSignature);
         }
