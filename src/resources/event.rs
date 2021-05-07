@@ -264,7 +264,8 @@ impl Webhook {
         let sig_v0 = signature.v0.expect("  👿  signature.v0 unwrap error.");
         if hex != sig_v0 {
         // if mac_result.is_equal(signature.v0) {
-            println!("  👿 hex != signature.v0");
+            println!("  👿 hex: {:?}", hex);
+            println!("  👿 signature.v0: {:?}", sig_v0);
             return Err(WebhookError::BadSignature);
         }
 
