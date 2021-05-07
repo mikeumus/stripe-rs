@@ -261,8 +261,10 @@ impl Webhook {
         mac.input(signed_payload.as_bytes());
         let mac_result = mac.result();
         let hex = to_hex(mac_result.code().as_slice());
-        if hex != signature.v1 {
-            println!("  👿 hex != signature.v1");
+        let sig_v0 = signature.v0.expect("  👿  signature.v0 unwrap error.");
+        if hex != sig_v0 {
+        // if mac_result.is_equal(signature.v0) {
+            println!("  👿 hex != signature.v0");
             return Err(WebhookError::BadSignature);
         }
 
